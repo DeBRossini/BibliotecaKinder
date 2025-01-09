@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block main %}
+    <h1>Capas dos Livros</h1>
+    {% for capa in capas %}
+        <img class="capa_home" src="{{ url_for('BibliotecaKinder', 'static', filename='capas/{}'.format(capa.imagem)) }}" alt="Capa">
+    {% endfor %}
+{% endblock %}
+
+C:\Users\Debora\PycharmProjects\Biblioteca\BibliotecaKinder\static\capas\Enquanto_ana_espera.jpg

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+    <title>Login_Biblioteca_Kinder</title>
+</head>
+<body>
+    <main>
+        <div class="login">
+            <img class="login__logo" src="static/assets/logo_kinder.png">
+            <p class="login__texto">Bem-Vindo</p>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                
+                {{ form.usuario.label() }}
+                {{ form.usuario() }}
+
+                {{ form.senha.label() }}
+                {{ form.senha() }}
+
+                {{ form.botao_confirmacao() }}
+
+            </form>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block titulo %}
+Novo Livro
+{% endblock %}
+
+{% block main %}
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+                
+    {{ form.nome_livro.label() }}
+    {{ form.nome_livro() }}
+
+    {{ form.descricao.label() }}
+    {{ form.descricao() }}
+
+    {{ form.autor.label() }}
+    {{ form.autor() }}
+
+    {{ form.palavras_chave.label() }}
+    {{ form.palavras_chave() }}
+
+    {{ form.capa.label() }}
+    {{ form.capa() }}
+
+    {{ form.botao_confirmacao() }}
+</form>
+{% endblock %}

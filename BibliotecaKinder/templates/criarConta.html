@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block titulo %}
+Adicionar Colaborador
+{% endblock %}
+
+{% block main %}
+<form method="POST">
+    {{ form.hidden_tag() }}
+                
+    {{ form.nome_completo.label() }}
+    {{ form.nome_completo() }}
+
+    {{ form.cargo.label() }}
+    {{ form.cargo() }}
+
+    {{ form.username.label() }}
+    {{ form.username() }}
+
+    {{ form.senha.label() }}
+    {{ form.senha() }}
+
+    {{ form.confirmacao_senha.label() }}
+    {{ form.confirmacao_senha() }}
+
+    {{ form.botao_confirmacao() }}
+</form>
+{% endblock %}
+
+nome_completo = StringField("Nome Completo", validators=[DataRequired()])
+    cargo = StringField("Cargo", validators=[DataRequired()])
+    #status = 
+    username = StringField("Usuário", validators=[DataRequired()])
+    senha = PasswordField("Senha", validators=[DataRequired()])
+    confirmacao_senha = PasswordField("Confirmação de senha", validators=[DataRequired(), EqualTo(senha)])
+    botao_confirmacao = SubmitField("Criar usuário")

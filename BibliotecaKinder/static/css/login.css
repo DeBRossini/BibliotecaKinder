@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+:root {
+    --cor-primaria: #22181C;
+    --cor-secundaria: #5A0001;
+    --cor-terciaria: #FFFFFF;
+    --cor-quaternaria: #343A40;
+    --cor-hover: #272727;
+
+    --fonte: "Playfair Display", serif;
+    --fonte-secundaria: "Inter", sans-serif;
+}
+
+body{
+    background-color: var(--cor-secundaria);
+}
+
+.login{
+    margin: 3% 30%;
+    background-color: var(--cor-terciaria);
+    height: 90%;
+    border-radius: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1%;
+    justify-content: center;
+}
+
+.login__logo{
+    margin: 5% 30% 3%;
+}
+
+.login__texto{
+    font-family: var(--fonte);
+    color: #22181C;
+    text-align: center;
+    font-weight: 600;
+    font-size: 230%;
+    margin: 0 0 5%;
+}
+
+.login__dados{
+    background: none;
+    margin: 0 10% 2%;
+    border-radius: 1.5rem;
+    height: 7%;
+    border-color: var(--cor-primaria);
+    padding: 3%;
+    gap: 10%;
+    font-size: 130%;
+}
+
+.login__dados::placeholder{
+    font-size: 130%;
+    font-family: var(--fonte-secundaria);
+    font-weight: 500;
+}
+
+.login__botao{
+    background-color: var(--cor-secundaria);
+    margin: 2% 20%;
+    border-radius: 1.5rem;
+    height: 7%;
+    border: none;
+    padding: 3%;
+    color: #FFFFFF;
+    font-family: var(--fonte-secundaria);
+    font-size: 100%;
+}
+
+@media (max-width: 1200Px) {
+    .login{
+        margin: 3% 15%;
+    }
+
+    .login__logo{
+        margin: 3% 15%;
+    }
+
+}
