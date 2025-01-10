@@ -35,6 +35,7 @@ class Livro(database.Model):
     autor = database.Column(database.String,nullable=False)
     palavras_chave = database.Column(database.String,nullable=False)
     capa = database.relationship("Capas", backref= "Livro", lazy=True)
+    com_colaborador = database.Column(database.String, nullable= True)
     status = database.Column(database.String,nullable=False)
 
 class Capas(database.Model):

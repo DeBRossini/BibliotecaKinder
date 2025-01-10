@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block titulo %}
+Reservar Livro
+{% endblock %}
+
+{% block main %}
+    <h1>{{ livro.nome_livro }}</h1>
+
+    <div>
+        <img class="capa_home" src="{{ url_for('static', filename='capas/{}'.format(livro.imagem)) }}" alt="Capa {{ livro.nome_livro }}">
+        Status: {{ livro.status }}
+        <p>Descrição: {{ livro.descricao }}</p>
+        {% if status == "Disponível" %}
+            <form method="POST">
+              {{ form.hidden_tag() }}
+
+              {{ form.data_prevista_entrega.label() }}
+              {{ form.data_prevista_entrega() }}
+
+              {{ form.botao_reserva() }}
+            </form>
+        {% elif livro.id_do_usuario == current_user.id %}
+            {{ form.hidden_tag() }}
+
+            {{ form.botao_devolucao() }} 
+        {% endif %}
+    </div>
+{% endblock %}

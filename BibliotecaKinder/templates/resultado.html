@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block titulo %}
+Resultados da pesquisa
+{% endblock %}
+
+{% block main %}
+    {% for capa in capas %}
+    <div>
+        <img class="capa_home" src="{{ url_for('static', filename='capas/{}'.format(capa.imagem)) }}" alt="Capa {{ capa.nome_livro }}">
+        <a href="{{ url_for('reserva', id_livro=capa.id) }}">{{ capa.nome_livro }}</a>
+    </div>
+    {% endfor %}
+{% endblock %}

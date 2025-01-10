@@ -1,6 +1,6 @@
 # Criar formulários do nosso site #
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, FileField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, FileField, SelectField, DateField
 from wtforms.validators import DataRequired, EqualTo, ValidationError
 from flask_wtf.file import FileAllowed
 from BibliotecaKinder.models import Usuario, Livro
@@ -49,6 +49,11 @@ class FormCriarLivro(FlaskForm):
         livro = Livro.query.filter_by(nome_livro = nome_livro.data).first()
         if livro:
             raise ValidationError("Este livro já está cadastrado")
+
+class FormReservarLivro(FlaskForm):
+    data_prevista_entrega = DateField("Quando pretende devolver?", format='%Y-%m-%d', validators=[DataRequired()])
+    botao_reserva = SubmitField("Reservar")
+    botao_devolucao = SubmitField("Devolver")
 
 class FormAlterarUsuario(FlaskForm):
     nome_completo_us = SelectField('Category', choices=[])

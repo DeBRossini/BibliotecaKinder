@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block main %}
-    <h1>Capas dos Livros</h1>
     {% for capa in capas %}
-        <img class="capa_home" src="{{ url_for('BibliotecaKinder', 'static', filename='capas/{}'.format(capa.imagem)) }}" alt="Capa">
+        <img class="capa_home" src="{{ url_for( 'static', filename='capas/{}'.format(capa.imagem)) }}" alt="Capa {{ capa.nome_livro }}">
+        <a href="{{ url_for('reserva', id_livro=capa[1]) }}">{{ capa[3] }}</a>
     {% endfor %}
 {% endblock %}
 

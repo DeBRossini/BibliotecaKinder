@@ -13,10 +13,13 @@
 </head>
 <body>
     <header>
-        <a href="{{ url_for('home', id_usuario=id_usuario, cargo=cargo) }}" class="home_link">
+        <a href="{{ url_for('home') }}" class="home_link">
             <img src="static/assets/home.png" class="home_link_img">
         </a>
-        <input class="pesquisa" type="text" placeholder="Pesquisar...">
+        <form method="POST" action="{{ url_for('pesquisa') }}">
+            <input type="text" name="query" placeholder="Digite o nome ou palavras-chave" required>
+            <button type="submit">Pesquisar</button>
+        </form>
         {% if cargo == "admin" %}
         <a href="{{ url_for('criarconta') }}">
             <button>Adicionar Colaborador</button>
