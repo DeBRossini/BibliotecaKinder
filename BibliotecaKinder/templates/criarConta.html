@@ -4,32 +4,34 @@ Adicionar Colaborador
 {% endblock %}
 
 {% block main %}
-<form method="POST">
+<form method="POST" class="cadastro-form">
     {{ form.hidden_tag() }}
-                
-    {{ form.nome_completo.label() }}
-    {{ form.nome_completo() }}
+      
+    <div class="cadastro-form-campo">
+        {{ form.nome_completo.label() }}
+        {{ form.nome_completo(class="cadastro-form-input") }}
+    </div>
 
-    {{ form.cargo.label() }}
-    {{ form.cargo() }}
+    <div class="cadastro-form-campo">
+        {{ form.cargo.label() }}
+        {{ form.cargo(class="cadastro-form-input") }}
+    </div>
 
-    {{ form.username.label() }}
-    {{ form.username() }}
+    <div class="cadastro-form-campo">
+        {{ form.username.label() }}
+        {{ form.username(class="cadastro-form-input") }}
+    </div>
 
-    {{ form.senha.label() }}
-    {{ form.senha() }}
+    <div class="cadastro-form-campo">
+        {{ form.senha.label() }}
+        {{ form.senha(class="cadastro-form-input") }}
+    </div>
 
-    {{ form.confirmacao_senha.label() }}
-    {{ form.confirmacao_senha() }}
-
-    {{ form.botao_confirmacao() }}
+    <div class="cadastro-form-campo">
+        {{ form.confirmacao_senha.label() }}
+        {{ form.confirmacao_senha(class="cadastro-form-input") }}
+    </div>
+    
+    {{ form.botao_confirmacao(class="cadastro-form-botao") }}
 </form>
 {% endblock %}
-
-nome_completo = StringField("Nome Completo", validators=[DataRequired()])
-    cargo = StringField("Cargo", validators=[DataRequired()])
-    #status = 
-    username = StringField("Usuário", validators=[DataRequired()])
-    senha = PasswordField("Senha", validators=[DataRequired()])
-    confirmacao_senha = PasswordField("Confirmação de senha", validators=[DataRequired(), EqualTo(senha)])
-    botao_confirmacao = SubmitField("Criar usuário")

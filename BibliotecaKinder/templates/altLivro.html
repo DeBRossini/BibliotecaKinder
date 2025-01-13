@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block titulo %}
+Alterar Livro
+{% endblock %}
+
+{% block main %}
+    <form method="POST" class="cadastro-form">
+        {{ form.hidden_tag() }}
+      
+        <div class="cadastro-form-campo">
+            {{ form.nome_livro.label() }}
+            {{ form.nome_livro(class="cadastro-form-input") }}
+        </div>
+
+        <div class="cadastro-form-campo">
+            {{ form.alterar_op.label() }}
+            {{ form.alterar_op(class="cadastro-form-input", id="alterar-op-livro") }}
+        </div>
+
+        <div class="cadastro-form-campo" id="campo-nome" style="display: none;">
+            {{ form.novo_nome.label() }}
+            {{ form.novo_nome(class="cadastro-form-input") }}
+        </div>
+        
+        <div class="cadastro-form-campo" id="campo-autor" style="display: none;">
+            {{ form.novo_autor.label() }}
+            {{ form.novo_autor(class="cadastro-form-input") }}
+        </div>
+
+        <div class="cadastro-form-campo" id="campo-descricao" style="display: none;">
+            {{ form.nova_descricao.label() }}
+            {{ form.nova_descricao(class="cadastro-form-input") }}
+        </div>
+        
+        <div class="cadastro-form-campo" id="campo-palch" style="display: none;">
+            {{ form.novas_palch.label() }}
+            {{ form.novas_palch(class="cadastro-form-input") }}
+        </div>
+
+        {{ form.botao_confirmacao(class="cadastro-form-botao") }}
+    
+    </form>
+{% endblock %}

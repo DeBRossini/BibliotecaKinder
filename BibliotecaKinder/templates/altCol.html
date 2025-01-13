@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block titulo %}
+Alterar Colaborador
+{% endblock %}
+
+{% block main %}
+    <form method="POST" class="cadastro-form">
+        {{ form.hidden_tag() }}
+      
+        <div class="cadastro-form-campo">
+            {{ form.nome_completo_us.label() }}
+            {{ form.nome_completo_us(class="cadastro-form-input") }}
+        </div>
+
+        <div class="cadastro-form-campo">
+            {{ form.alterar_op.label() }}
+            {{ form.alterar_op(class="cadastro-form-input", id="alterar-op") }}
+        </div>
+
+        <div class="cadastro-form-campo" id="campo-status" style="display: none;">
+            {{ form.novo_status.label() }}
+            {{ form.novo_status(class="cadastro-form-input") }}
+        </div>
+        
+        <div class="cadastro-form-campo" id="campo-nome" style="display: none;">
+            {{ form.novo_nome.label() }}
+            {{ form.novo_nome(class="cadastro-form-input") }}
+        </div>
+
+        <div class="cadastro-form-campo" id="campo-senha" style="display: none;">
+            {{ form.nova_senha.label() }}
+            {{ form.nova_senha(class="cadastro-form-input") }}
+        </div>
+        
+        <div class="cadastro-form-campo" id="campo-cargo" style="display: none;">
+            {{ form.novo_cargo.label() }}
+            {{ form.novo_cargo(class="cadastro-form-input") }}
+        </div>
+
+        {{ form.botao_confirmacao(class="cadastro-form-botao") }}
+    
+    </form>
+{% endblock %}

@@ -1,3 +1,4 @@
+#exemplo de __init__.py#
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -5,7 +6,7 @@ from flask_bcrypt import Bcrypt
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///comunidade.db"
-app.config['SECRET_KEY'] = "f238c63c6df4c9ad67d92056de68f5c6"
+app.config['SECRET_KEY'] = "1"
 app.config["UPLOAD_FOLDER"] = "static/capas"
 
 database = SQLAlchemy(app)

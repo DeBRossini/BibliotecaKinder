@@ -1,0 +1,328 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+:root {
+    --cor-primaria: #F6E8EA;
+    --cor-secundaria: #5A0001;
+    --cor-terciaria: #FFFFFF;
+    --cor-quaternaria: #343A40;
+    --cor-hover: #272727;
+
+    --fonte: "Inter", sans-serif;
+    --fonte-secundaria: 
+}
+
+*{
+    background-color:none
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+main {
+    min-height: calc(100vh - 20%); 
+    padding: 2%;
+    overflow-y: auto;
+}
+
+header{
+    width: 100%; 
+    background-color: var(--cor-secundaria);    
+    height: 15%;
+    display: flex;
+    align-items: center;
+    color: var(--cor-terciaria);
+    padding: 0;
+}
+
+.menu-container {
+    position: relative;
+}
+
+.menu-toggle {
+    position: fixed;
+    color: var(--cor-terciaria);
+    top: 5.5%;
+    right: 3%;
+    background-color: transparent;
+    border: none;
+    font-size: 150%;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    right: -500px;
+    width: 20%;
+    height: 100%;
+    background-color: var(--cor-secundaria);
+    color: var(--cor-terciaria);
+    padding: 2%;
+    transition: right 0.3s ease;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.menu ul li {
+    margin: 4% 0;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: var(--cor-terciaria);
+    font-family: var(--fonte);
+    font-size: 130%;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.menu ul li a:hover{
+    text-decoration: underline;
+}
+
+
+.menu.open {
+    right: 0;
+}
+
+
+.base-home-link{
+    margin: 0 0 0 1%
+}
+
+.base-home-link-img{
+    background-color: var(--cor-secundaria);
+    height: 50%;
+    width: 100%;
+}
+
+.base-pesquisa{
+    display: flex;
+    align-items: center;
+    gap: 5%;
+    position: absolute;
+    left: 30%;
+    top: 4%;
+    height: 6%;
+    width: 30%;
+}
+
+.base-pesquisa-input{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-self: center;
+    height: 100%;
+    width: 80%;
+    border-radius: 15px;
+    font-family: var(--fonte);
+    font-size: 100%;
+    border: none;
+}
+
+.base-pesquisa-input::placeholder{
+    font-family: var(--fonte);
+    font-size: 100%;
+    color: black;
+    text-align: center;
+}
+
+.base-pesquisa-botao{
+    height: 100%;
+    width: 30%;
+    border-radius: 15px;
+    border: 0.2rem solid var(--cor-terciaria);
+    background-color: var(--cor-secundaria);
+    color: var(--cor-terciaria);
+    font-family: var(--fonte);
+    font-size: 90%;
+}
+
+.base-sair {
+    position: fixed;
+    top: 5.5%;
+    right: 3%;
+    color: var(--cor-terciaria);
+    font-size: 120%;
+    text-decoration: none;
+}
+
+footer{
+    background-color: var(--cor-secundaria);
+    height: 10%;
+    text-align: center;
+    color: var(--cor-terciaria);
+    position: relative;
+}
+
+/*home*/
+.capa_home {
+    max-width: 100%;
+    height: 60%;
+}
+
+.home_livro{
+    flex: 0 1 20%;
+    gap: 5%;
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    text-align: center;
+    word-wrap: break-word;
+    justify-content: center;
+    max-height: 10%;
+}
+
+.capa_home{
+    width: 100%;
+}
+
+.home-exp-livros{
+    display: flex;
+    gap: 3%;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.home-livro-nome{
+    display: block;
+    text-decoration: none;
+    font-family: var(--fonte);
+    font-size: 120%;
+}
+
+
+/*Reserva.html*/
+.res-nome-livro{
+    font-family: var(--fonte);
+    font-size: 150%;
+}
+
+.res{
+    height: 75%;
+    position: absolute;
+    place-items: center;
+    display: flex;
+    gap: 3%;
+}
+
+.res-inf-capa{
+    height:100%;
+    width: 80%;
+}
+
+.res-inf-desc{
+    gap:none;
+    height:80%;
+}
+
+.res-inf-desc-desc{
+    color: var(--cor-secundaria);
+    font-weight: 700;
+    height: 3%;
+}
+
+.res-inf-status{
+    height:10%;
+    margin: 2% 0 2% 0
+}
+
+.res-inf{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: justify;
+    border: 0.5rem solid var(--cor-secundaria);
+    font-family: var(--fonte);
+    font-size: 150%;
+    margin: 1%;
+    width: 80%;
+    height: 80%;
+    padding: 2%;
+    gap: none;
+}
+
+.res-inf-nomecol{
+    margin: 0 0 2% 0;
+}
+
+.res-inf-form{
+    height: 15%;
+}
+
+.res-inf-form-data{
+    height: 20%;
+    gap: 5%;
+}
+
+.res-inf-form-data-ch{
+    width: 30%;
+    font-family: var(--fonte);
+    font-size: 100%;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.res-inf-form-bot{
+    display: flex;
+    align-self: flex-end; 
+    border-radius: 20px;
+    height: 50%;
+    width: 50%;
+    margin: 0 30% 0 30%;
+    background-color: var(--cor-secundaria);
+    font-family: var(--fonte);
+    color: var(--cor-primaria);
+    font-size: 80%;
+    border: none;
+}
+
+/*Formilários de cadastro*/
+.cadastro-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3%;
+    margin: 0;
+}
+
+.cadastro-form-campo{
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 1% 0;
+    font-family: var(--fonte);
+    font-size: 150%;
+}
+
+.cadastro-form-input{
+    align-self: center;
+    width: 100%;
+    border-radius: 15px;
+    font-family: var(--fonte);
+    font-size: 90%;
+    padding: 1%;
+    overflow-y: hidden;
+    box-sizing: border-box;
+    resize: none;
+    flex-wrap: wrap;
+}
+
+.cadastro-form-botao{
+    align-self: center;
+    height: 50px;
+    width: 70%;
+    background-color: var(--cor-secundaria);
+    color: var(--cor-terciaria);
+    font-family: var(--fonte);
+    font-size: 100%;
+    border-radius: 15px;
+}
+
+/*reserva*/

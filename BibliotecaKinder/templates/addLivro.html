@@ -4,24 +4,33 @@ Novo Livro
 {% endblock %}
 
 {% block main %}
-<form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data" class="cadastro-form">
     {{ form.hidden_tag() }}
-                
-    {{ form.nome_livro.label() }}
-    {{ form.nome_livro() }}
+    
+    <div class="cadastro-form-campo">
+        {{ form.nome_livro.label() }}
+        {{ form.nome_livro(class="cadastro-form-input") }}
+    </div>
 
-    {{ form.descricao.label() }}
-    {{ form.descricao() }}
+    <div class="cadastro-form-campo">
+        {{ form.descricao.label() }}
+        {{ form.descricao(class="cadastro-form-input") }}
+    </div>
 
-    {{ form.autor.label() }}
-    {{ form.autor() }}
+    <div class="cadastro-form-campo">
+        {{ form.autor.label() }}
+        {{ form.autor(class="cadastro-form-input") }}
+    </div>
 
-    {{ form.palavras_chave.label() }}
-    {{ form.palavras_chave() }}
+    <div class="cadastro-form-campo">
+        {{ form.palavras_chave.label() }}
+        {{ form.palavras_chave(class="cadastro-form-input") }}
+    </div>
 
-    {{ form.capa.label() }}
-    {{ form.capa() }}
-
-    {{ form.botao_confirmacao() }}
+    <div class="cadastro-form-campo">
+        {{ form.capa.label() }}
+        {{ form.capa(class="cadastro-form-input") }}
+    </div>
+    {{ form.botao_confirmacao(class="cadastro-form-botao") }}
 </form>
 {% endblock %}

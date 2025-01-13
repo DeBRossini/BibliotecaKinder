@@ -9,18 +9,16 @@
 <body>
     <main>
         <div class="login">
-            <img class="login__logo" src="static/assets/logo_kinder.png">
-            <p class="login__texto">Bem-Vindo</p>
-            <form method="POST">
+            <img class="login-logo" src="static/assets/logo_kinder.png">
+            <p class="login-texto">Bem-Vindo</p>
+            <form method="POST" class="login-form">
                 {{ form.hidden_tag() }}
                 
-                {{ form.usuario.label() }}
-                {{ form.usuario() }}
+                {{ form.usuario(class="login-dados") }}
 
-                {{ form.senha.label() }}
-                {{ form.senha() }}
+                {{ form.senha(class="login-dados") }}
 
-                {{ form.botao_confirmacao() }}
+                {{ form.botao_confirmacao(class="login-botao") }}
 
             </form>
         </div>

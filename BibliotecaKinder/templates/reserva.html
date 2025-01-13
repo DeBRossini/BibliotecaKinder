@@ -4,25 +4,44 @@ Reservar Livro
 {% endblock %}
 
 {% block main %}
-    <h1>{{ livro.nome_livro }}</h1>
+    <h1 class="res-nome-livro">{{ livro.nome_livro }}</h1>
 
-    <div>
-        <img class="capa_home" src="{{ url_for('static', filename='capas/{}'.format(livro.imagem)) }}" alt="Capa {{ livro.nome_livro }}">
-        Status: {{ livro.status }}
-        <p>Descrição: {{ livro.descricao }}</p>
-        {% if status == "Disponível" %}
-            <form method="POST">
-              {{ form.hidden_tag() }}
+    <div class="res">
+        <img class="res-inf-capa" src="{{ url_for('static', filename='capas/{}'.format(livro.imagem)) }}" alt="Capa {{ livro.nome_livro }}">
+        <div class="res-inf">
+            <div class="res-inf-desc">
+                <p class="res-inf-desc-desc">Descrição:</p>
+                <p class="res-inf-desc-texto">{{ livro.descricao }}</p>
+            </div>
+            <p class="res-inf-status">Status: 
+                {% if livro.status == "Disponível" %}
+                    <span class="res-inf-status" style="color: green;">{{ livro.status }}</span>
+                {% endif %}
+                {% if livro.status == "Reservado" %}
+                    <span class="res-inf-status" style="color: red;">{{ livro.status }}</span>
+                {% endif %}
+            </p>
+            {% if livro.status == "Disponível" %}
+                <form method="POST" class="res-inf-form">
+                {{ form_reserva.hidden_tag() }}
 
-              {{ form.data_prevista_entrega.label() }}
-              {{ form.data_prevista_entrega() }}
+                <div class="res-inf-form-data">
+                    {{ form_reserva.data_prevista_entrega.label(class="res-inf-form-data-lab") }}
+                    {{ form_reserva.data_prevista_entrega(class="res-inf-form-data-ch") }}
+                </div>
+                <p>{{ form_reserva.botao_reserva(class="res-inf-form-bot")  }}</p>
+                </form>
+            {% elif livro.status == "Reservado" %}
+                <p class="res-inf-nomecol">Reservado por {{ livro.com_colaborador }} no dia  {{ log.data_alugado.strftime('%d/%m/%Y') }}</p>
+                <p class="res-inf-nomecol">Previsão de entrega: {{ log.data_previsao_de_entrega.strftime('%d/%m/%Y') }}</p>
+                {% if livro.com_colaborador == current_user.nome_completo %}
+                    <form method="POST">
+                        {{ form_dev.hidden_tag() }}
 
-              {{ form.botao_reserva() }}
-            </form>
-        {% elif livro.id_do_usuario == current_user.id %}
-            {{ form.hidden_tag() }}
-
-            {{ form.botao_devolucao() }} 
-        {% endif %}
+                        <p>{{ form_dev.botao_devolucao(class="res-inf-form-bot") }}</p>
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
     </div>
 {% endblock %}

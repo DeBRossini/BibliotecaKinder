@@ -26,11 +26,11 @@ body{
     justify-content: center;
 }
 
-.login__logo{
+.login-logo{
     margin: 5% 30% 3%;
 }
 
-.login__texto{
+.login-texto{
     font-family: var(--fonte);
     color: #22181C;
     text-align: center;
@@ -39,24 +39,32 @@ body{
     margin: 0 0 5%;
 }
 
-.login__dados{
+.login-form{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.login-dados{
     background: none;
     margin: 0 10% 2%;
     border-radius: 1.5rem;
     height: 7%;
     border-color: var(--cor-primaria);
-    padding: 3%;
+    padding: 2%;
     gap: 10%;
+    font-family: var(--fonte);
     font-size: 130%;
+    align-items: center;
 }
 
-.login__dados::placeholder{
+.login-dados::placeholder{
     font-size: 130%;
     font-family: var(--fonte-secundaria);
     font-weight: 500;
 }
 
-.login__botao{
+.login-botao{
     background-color: var(--cor-secundaria);
     margin: 2% 20%;
     border-radius: 1.5rem;
@@ -65,7 +73,7 @@ body{
     padding: 3%;
     color: #FFFFFF;
     font-family: var(--fonte-secundaria);
-    font-size: 100%;
+    font-size: 120%;
 }
 
 @media (max-width: 1200Px) {

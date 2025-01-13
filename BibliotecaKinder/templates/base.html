@@ -2,33 +2,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% block style %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
-    {% endblock %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
     <title>
         {% block titulo %}
         Biblioteca Kinder
         {% endblock %}
     </title>
+    <link rel="icon" href="{{ url_for('static', filename='assets/logo_kinder.png') }}">
 </head>
 <body>
     <header>
-        <a href="{{ url_for('home') }}" class="home_link">
-            <img src="static/assets/home.png" class="home_link_img">
+        <a href="{{ url_for('home') }}" class="base-home-link">
+            <img src="{{ url_for('static', filename='assets/home.png') }}" class="base-home-link-img">
         </a>
-        <form method="POST" action="{{ url_for('pesquisa') }}">
-            <input type="text" name="query" placeholder="Digite o nome ou palavras-chave" required>
-            <button type="submit">Pesquisar</button>
+        <form class="base-pesquisa" method="POST" action="{{ url_for('pesquisa') }}">
+            <input class="base-pesquisa-input" type="text" name="query" placeholder="Digite o nome ou palavras-chave" required>
+            <button class="base-pesquisa-botao" type="submit">Pesquisar</button>
         </form>
-        {% if cargo == "admin" %}
-        <a href="{{ url_for('criarconta') }}">
-            <button>Adicionar Colaborador</button>
-        </a>
-        <a href="{{ url_for('adicionarlivro') }}">
-            <button>Adicionar Livro</button>
-        </a>
-        {% endif %}
-        <a href="/logout">Sair</a>
+        {% if current_user.cargo == "admin" %}
+            <div class="menu-container">
+                <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+                <div class="menu" id="menu">
+                <ul>
+                    <li>
+                        <a class="base-adm-but" href="{{ url_for('criarconta') }}">
+                            Adicionar Colaborador
+                        </a>
+                    </li>
+                    <li>
+                        <a class="base-adm-but" href="{{ url_for('altcolaboradores') }}">
+                            Alterar Colaborador
+                        </a>
+                    </li>
+                    <li>
+                        <a class="base-adm-but" href="{{ url_for('adicionarlivro') }}">
+                            Adicionar Livro
+                        </a>
+                    </li>
+                    <li>
+                        <a class="base-adm-but" href="{{ url_for('altlivro') }}">
+                            Alterar Livro
+                        </a>
+                    </li>
+                    <li>
+                        <a class="base-logout" href="/logout">Sair</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        {% else %}
+            <a class="base-sair" href="/logout">Sair</a>
+        {% endif %}        
     </header>
     <main>
         {% block main %}

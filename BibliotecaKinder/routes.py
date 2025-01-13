@@ -4,7 +4,7 @@ from datetime import datetime
 from BibliotecaKinder.models import Usuario, Capas, Livro, Log
 from BibliotecaKinder import app, database, bcrypt
 from flask_login import login_required, current_user, login_user, logout_user
-from BibliotecaKinder.forms import FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro
+from BibliotecaKinder.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
 import os
 from werkzeug.utils import secure_filename
 
@@ -30,39 +30,42 @@ def home():
 @app.route("/reservar-livro/<id_livro>", methods=["GET", "POST"])
 @login_required
 def reserva(id_livro):
-    livro = Livro.query.join(Capas, Capas.id_livro == Livro.id) \
-                   .join(Log, Log.id_do_livro == Livro.id) \
-                   .add_columns(Livro.id, Livro.nome_livro, Livro.descricao, Capas.imagem, Livro.status, Log.id_do_usuario) \
+    livro = Livro.query.join(Capas) \
+                   .add_columns(Livro.id, Livro.nome_livro, Livro.descricao, Capas.imagem, Livro.status, Livro.com_colaborador) \
                    .filter(Livro.id == id_livro) \
                    .first()
-    print(livro) 
+    log = Log.query.filter((Log.id_do_livro == id_livro) & (Log.data_real_de_entrega.is_(None))).first()
+    print(log)
     formreservarlivro = FormReservarLivro()
+    formdevolverlivro = FormDevolverLivro()
     if formreservarlivro.validate_on_submit():
-        if formreservarlivro.botao_reserva.data:
-            database.session.query(Livro).filter_by(id=Livro.id).update({"status": "Reservado"})
-            log = Log(id_do_livro = livro.id,
-                      id_do_usario = current_user.id,
-                      data_alugado = datetime.now(),
-                      status = "Em aberto"
-            )
-            database.session.add(log)
-            database.session.commit()
-        elif formreservarlivro.botao_devolucao.data:
-            database.session.query(Livro).filter_by(id=Livro.id).update({"status": "Disponível"})
-            database.session.query(Log).filter_by(id_do_livro=Livro.id).update({"data_real_de_entrega": datetime.now(), "status": "Finalizado"})
-            database.session.add(log)
-            database.session.commit()
+        database.session.query(Livro).filter_by(id=id_livro).update({"status": "Reservado", "com_colaborador": current_user.nome_completo})
+        log = Log(id_do_livro = livro.id,
+                  id_do_usuario = current_user.id,
+                   data_alugado = datetime.now(),
+                  status = "Em aberto",
+                  data_previsao_de_entrega = formreservarlivro.data_prevista_entrega.data
+        )
+        database.session.add(log)
+        database.session.commit()
 
-    return render_template("reserva.html", livro=livro, form = formreservarlivro)
+    elif formdevolverlivro.validate_on_submit() and formdevolverlivro.botao_devolucao.data:
+        print("Botão de devolução clicado")
+        database.session.query(Livro).filter_by(id=id_livro).update({"status": "Disponível", "com_colaborador": ""})
+        database.session.query(Log).filter_by(id_do_livro=Livro.id).update({"data_real_de_entrega": datetime.now(), "status": "Finalizado"})
+        database.session.commit()
+
+    return render_template("reserva.html", livro=livro, log=log, form_reserva = formreservarlivro, form_dev = formdevolverlivro)
 
 @app.route('/pesquisa', methods=['GET', 'POST'])
 def pesquisa():
     query = request.form.get('query', '') 
     resultados = []
     if query:
-        resultados = Livro.query.join(Capas).add_columns(Livro.id, Livro.nome_livro, Livro.descricao, Capas.imagem).filter(
+        resultados = Livro.query.join(Capas).add_columns(Livro.id, Livro.nome_livro, Livro.descricao, Livro.status, Capas.imagem).filter(
             (Livro.nome_livro.ilike(f'%{query}%')) | 
-            (Livro.palavras_chave.ilike(f'%{query}%'))
+            (Livro.palavras_chave.ilike(f'%{query}%')) |
+            (Livro.descricao.ilike(f'%{query}%'))
             ).all()
     
     return render_template('resultado.html', capas=resultados)
@@ -85,6 +88,35 @@ def criarconta():
     else:
         print(formcriarconta.errors) 
     return render_template("criarConta.html", form=formcriarconta)
+
+@app.route("/alt-colaboradores")
+@login_required
+def altcolaboradores():
+    formalterarusuario = FormAlterarUsuario()
+    usuarios = Usuario.query.all() 
+    formalterarusuario.nome_completo_us.choices = [("", "Selecione um usuário")] + [
+        (usuario.id, usuario.nome_completo) for usuario in usuarios
+    ]
+    if formalterarusuario.validate_on_submit():
+        usuario_id = formalterarusuario.nome_completo_us.data
+        alterar_op = formalterarusuario.alterar_op.data
+        if alterar_op == "status":
+            database.session.query(Usuario).filter_by(usuario_id=Usuario.id).update({
+                "status": formalterarusuario.novo_status.data
+                })
+        elif alterar_op == "nome_completo":
+            database.session.query(Usuario).filter_by(usuario_id=Usuario.id).update({
+                "nome_completo": formalterarusuario.novo_nome.data
+                })
+        elif alterar_op == "senha":
+            database.session.query(Usuario).filter_by(usuario_id=Usuario.id).update({
+                "senha": formalterarusuario.nova_senha.data
+                })
+        elif alterar_op == "cargo":
+            database.session.query(Usuario).filter_by(usuario_id=Usuario.id).update({
+                "cargo": formalterarusuario.novo_cargo.data
+                })
+    return render_template("altCol.html", form = formalterarusuario)
 
 @app.route("/adicionar-livro", methods=["GET", "POST"])
 @login_required
@@ -112,6 +144,35 @@ def adicionarlivro():
         flash("Livro adicionado com sucesso!", "success")
         return redirect(url_for("adicionarlivro"))
     return render_template("addLivro.html", form=formcriarlivro)
+
+@app.route("/alt-livro")
+@login_required
+def altlivro():
+    formalterarlivro = FormAlterarLivro()
+    livros = Livro.query.all() 
+    formalterarlivro.nome_livro.choices = [("", "Selecione um livro")] + [
+        (livro.id, livro.nome_livro) for livro in livros
+    ]
+    if formalterarlivro.validate_on_submit():
+        livro_id = formalterarlivro.novo_nome.data
+        alterar_op = formalterarlivro.alterar_op.data
+        if alterar_op == "nome-livro":
+            database.session.query(Livro).filter_by(livro_id=Livro.id).update({
+                "nome_livro": formalterarlivro.nome_livro.data
+                })
+        elif alterar_op == "autor":
+            database.session.query(Livro).filter_by(livro_id=Livro.id).update({
+                "autor": formalterarlivro.novo_autor.data
+                })
+        elif alterar_op == "descricao":
+            database.session.query(Livro).filter_by(livro_id=Livro.id).update({
+                "descricao": formalterarlivro.nova_descricao.data
+                })
+        elif alterar_op == "palavras-chave":
+            database.session.query(Livro).filter_by(livro_id=Livro.id).update({
+                "palavras_chave": formalterarlivro.novas_palch.data
+                })
+    return render_template("altLivro.html", form = formalterarlivro)
 
 @app.route("/logout")
 @login_required
