@@ -1,10 +1,10 @@
 # Criar as rotas do nosso site #
 from flask import render_template, url_for, redirect, flash, request
 from datetime import datetime
-from api.app.models import Usuario, Capas, Livro, Log
-from api import app, database, bcrypt
+from app.models import Usuario, Capas, Livro, Log
+from app import app, database, bcrypt
 from flask_login import login_required, current_user, login_user, logout_user
-from api.app.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
+from app.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
 import os
 from werkzeug.utils import secure_filename
 
@@ -71,7 +71,7 @@ def pesquisa():
     return render_template('resultado.html', capas=resultados)
 
 @app.route("/adicionar-colaborador", methods=["GET", "POST"])
-@login_required
+#@login_required
 def criarconta():
     formcriarconta = FormCriarConta()
     if formcriarconta.validate_on_submit():
