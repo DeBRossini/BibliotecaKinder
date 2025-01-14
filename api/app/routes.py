@@ -1,12 +1,23 @@
 # Criar as rotas do nosso site #
 from flask import render_template, url_for, redirect, flash, request
 from datetime import datetime
-from BibliotecaKinder.models import Usuario, Capas, Livro, Log
-from BibliotecaKinder import app, database, bcrypt
+from api.app.models import Usuario, Capas, Livro, Log
+from api import app, database, bcrypt
 from flask_login import login_required, current_user, login_user, logout_user
-from BibliotecaKinder.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
+from api.app.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
 import os
 from werkzeug.utils import secure_filename
+
+@app.route("/", methods=["GET", "POST"])
+def loginpage():
+    formlogin = FormLogin()
+    if formlogin.validate_on_submit():
+        usuario = Usuario.query.filter_by(username = formlogin.usuario.data).first()
+        if usuario and bcrypt.check_password_hash(usuario.senha, formlogin.senha.data):
+            login_user(usuario)
+            return redirect(url_for("home"))
+        else: flash("Usuário ou senha inválidos. Tente novamente.", "danger")
+    return render_template("login.html", form = formlogin)
 
 @app.route("/homepage")
 @login_required

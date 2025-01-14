@@ -13,4 +13,4 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
-from BibliotecaKinder import routes
+from api.app import routes
