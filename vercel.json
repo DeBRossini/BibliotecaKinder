@@ -9,9 +9,6 @@
     "env": {
       "RUSTUP_HOME": "/vercel/.cargo",
       "CARGO_HOME": "/vercel/.cargo/bin"
-    },
-    "scripts": {
-      "build": "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh && cargo build"
     }
   }
   
