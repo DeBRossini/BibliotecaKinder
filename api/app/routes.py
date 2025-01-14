@@ -1,8 +1,8 @@
 # Criar as rotas do nosso site #
 from flask import render_template, url_for, redirect, flash, request
+from api import app, database, bcrypt
 from datetime import datetime
 from api.app.models import Usuario, Capas, Livro, Log
-from api import app, database, bcrypt
 from flask_login import login_required, current_user, login_user, logout_user
 from api.app.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
 import os
