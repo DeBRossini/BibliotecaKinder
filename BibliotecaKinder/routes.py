@@ -8,17 +8,6 @@ from BibliotecaKinder.forms import FormAlterarLivro, FormCriarConta, FormLogin, 
 import os
 from werkzeug.utils import secure_filename
 
-@app.route("/", methods=["GET", "POST"])
-def loginpage():
-    formlogin = FormLogin()
-    if formlogin.validate_on_submit():
-        usuario = Usuario.query.filter_by(username = formlogin.usuario.data).first()
-        if usuario and bcrypt.check_password_hash(usuario.senha, formlogin.senha.data):
-            login_user(usuario)
-            return redirect(url_for("home"))
-        else: flash("Usuário ou senha inválidos. Tente novamente.", "danger")
-    return render_template("login.html", form = formlogin)
-
 @app.route("/homepage")
 @login_required
 def home():
