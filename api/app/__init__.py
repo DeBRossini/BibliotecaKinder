@@ -5,7 +5,7 @@ from flask_bcrypt import Bcrypt
 import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///comunidade.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///api/comunidade.db'
 app.config['SECRET_KEY'] = "f238c63c6df4c9ad67d92056de68f5c6"
 app.config["UPLOAD_FOLDER"] = "static/capas"
 
