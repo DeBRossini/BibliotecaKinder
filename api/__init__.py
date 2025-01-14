@@ -15,4 +15,3 @@ login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
 from api.app import routes
-routes.init_routes(app)
