@@ -9,9 +9,6 @@
     "env": {
       "RUSTUP_HOME": "/vercel/.cargo",
       "CARGO_HOME": "/vercel/.cargo/bin"
-    },
-    "functions": {
-    "api/**/*.py": {
-      "runtime": "python3.9"}}
+    }
   }
   
