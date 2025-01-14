@@ -1,6 +1,6 @@
-from app import app
+from api import app
 
 if __name__ == "__main__":
     app.run()
 
-from app import routes
+from api import routes
