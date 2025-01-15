@@ -5,10 +5,17 @@ from flask_bcrypt import Bcrypt
 import os
 from urllib.parse import quote_plus
 
-password = quote_plus("4879@@de")
+
+DB_USER = os.getenv("DB_USER", "root")  
+DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))  
+DB_HOST = os.getenv("DB_HOST", "localhost") 
+DB_PORT = os.getenv("DB_PORT", "3306") 
+DB_NAME = os.getenv("DB_NAME", "sys")
+SECRET_KEY = os.getenv("SECRET_KEY", "1")
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://root:{password}@localhost:3306/sys"
-app.config['SECRET_KEY'] = "f238c63c6df4c9ad67d92056de68f5c6"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+app.config['SECRET_KEY'] = SECRET_KEY
 app.config["UPLOAD_FOLDER"] = "static/capas"
 
 database = SQLAlchemy(app)
