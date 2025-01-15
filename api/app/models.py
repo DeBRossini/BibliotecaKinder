@@ -10,11 +10,11 @@ def load_usuario(id_usuario):
 
 class Usuario(database.Model, UserMixin):
     id = database.Column(database.Integer, primary_key=True)
-    username = database.Column(database.String, nullable=False)
-    nome_completo = database.Column(database.String, nullable=False, unique=True)
-    cargo = database.Column(database.String,nullable=False)
-    status = database.Column(database.String, nullable=False)
-    senha = database.Column(database.String, nullable=False)
+    username = database.Column(database.String(100), nullable=False)
+    nome_completo = database.Column(database.String(400), nullable=False, unique=True)
+    cargo = database.Column(database.String(100),nullable=False)
+    status = database.Column(database.String(100), nullable=False)
+    senha = database.Column(database.String(200), nullable=False)
     data_adicao = database.Column(database.DateTime, nullable=False)
     data_alteracao = database.Column(database.DateTime, nullable=False)
 
@@ -25,20 +25,20 @@ class Log(database.Model):
     data_alugado = database.Column(database.DateTime, nullable=False)
     data_previsao_de_entrega = database.Column(database.DateTime)
     data_real_de_entrega = database.Column(database.DateTime)
-    status = database.Column(database.String, nullable=False)
+    status = database.Column(database.String(100), nullable=False)
 
 class Livro(database.Model):
     id = database.Column(database.Integer, primary_key=True)
-    nome_livro = database.Column(database.String,nullable=False)
+    nome_livro = database.Column(database.String(300),nullable=False)
     data_adicao = database.Column(database.DateTime)
-    descricao = database.Column(database.String,nullable=False)
-    autor = database.Column(database.String,nullable=False)
-    palavras_chave = database.Column(database.String,nullable=False)
+    descricao = database.Column(database.String(500),nullable=False)
+    autor = database.Column(database.String(200),nullable=False)
+    palavras_chave = database.Column(database.String(200),nullable=False)
     capa = database.relationship("Capas", backref= "Livro", lazy=True)
-    com_colaborador = database.Column(database.String, nullable= True)
-    status = database.Column(database.String,nullable=False)
+    com_colaborador = database.Column(database.String(200), nullable= True)
+    status = database.Column(database.String(100),nullable=False)
 
 class Capas(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     id_livro = database.Column(database.Integer, database.ForeignKey('livro.id'), nullable=False)
-    imagem = database.Column(database.String, default="default.png")
+    imagem = database.Column(database.String(300), default="default.png")

@@ -3,9 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 import os
+from urllib.parse import quote_plus
 
+password = quote_plus("4879@@de")
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///api/comunidade.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://root:{password}@localhost/sys"
 app.config['SECRET_KEY'] = "f238c63c6df4c9ad67d92056de68f5c6"
 app.config["UPLOAD_FOLDER"] = "static/capas"
 
