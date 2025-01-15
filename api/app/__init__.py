@@ -7,7 +7,7 @@ from urllib.parse import quote_plus
 
 
 DB_USER = os.getenv("DB_USER", "root")  
-DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD"))  
+DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD", "4879@@de"))  
 DB_HOST = os.getenv("DB_HOST", "localhost") 
 DB_PORT = os.getenv("DB_PORT", "3306") 
 DB_NAME = os.getenv("DB_NAME", "sys")
@@ -23,4 +23,4 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
-from api.app import routes
+from app import routes
