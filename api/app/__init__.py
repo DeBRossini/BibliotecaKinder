@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import create_engine
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 import os
@@ -13,11 +12,6 @@ DB_HOST = os.getenv("DB_HOST", "192.168.1.21")
 DB_PORT = os.getenv("DB_PORT", "3306") 
 DB_NAME = os.getenv("DB_NAME", "sys")
 SECRET_KEY = os.getenv("SECRET_KEY", "f238c63c6df4c9ad67d92046de68f5c6")
-
-engine = create_engine(
-    f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}",
-    connect_args={"connect_timeout": 60} 
-)
 
 
 app = Flask(__name__)
