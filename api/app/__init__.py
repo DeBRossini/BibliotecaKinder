@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "f238c63c6df4c9ad67d92046de68f5c6")
 
 engine = create_engine(
     f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}",
-    connect_args={"connect_timeout": 30}  # Tempo de espera de 30 segundos
+    connect_args={"connect_timeout": 60} 
 )
 
 
