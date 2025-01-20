@@ -1,6 +1,6 @@
 # Criar a estrutura do banco de dados #
 
-from api.app import database, login_manager
+from app import database, login_manager
 from datetime import datetime
 from flask_login import UserMixin
 

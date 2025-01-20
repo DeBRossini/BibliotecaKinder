@@ -17,11 +17,10 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 app.config['SECRET_KEY'] = SECRET_KEY
 app.config["UPLOAD_FOLDER"] = "static/capas"
-app.config['SQLALCHEMY_POOL_TIMEOUT'] = 30 
 
 database = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
 
-from api.app import routes
+from app import routes
