@@ -9,7 +9,7 @@ import os
 from werkzeug.utils import secure_filename
 
 
-@app.route("/", methods=["GET"])
+@app.route("/", methods=["GET", "POST"])
 def loginpage():
     formlogin = FormLogin()
     if formlogin.validate_on_submit():
@@ -20,7 +20,7 @@ def loginpage():
         else: flash("Usuário ou senha inválidos. Tente novamente.", "danger")
     return render_template("login.html", form = formlogin)
 
-@app.route("/homepage")
+@app.route("/homepage", methods=["GET", "POST"])
 @login_required
 def home():
     livros = Livro.query.all()
@@ -90,7 +90,7 @@ def criarconta():
         print(formcriarconta.errors) 
     return render_template("criarConta.html", form=formcriarconta)
 
-@app.route("/alt-colaboradores")
+@app.route("/alt-colaboradores", methods=["GET", "POST"])
 @login_required
 def altcolaboradores():
     formalterarusuario = FormAlterarUsuario()
@@ -146,7 +146,7 @@ def adicionarlivro():
         return redirect(url_for("adicionarlivro"))
     return render_template("addLivro.html", form=formcriarlivro)
 
-@app.route("/alt-livro")
+@app.route("/alt-livro", methods=["GET", "POST"])
 @login_required
 def altlivro():
     formalterarlivro = FormAlterarLivro()
