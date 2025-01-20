@@ -9,7 +9,7 @@ import os
 from werkzeug.utils import secure_filename
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/", methods=["GET"])
 def loginpage():
     formlogin = FormLogin()
     if formlogin.validate_on_submit():
