@@ -5,7 +5,6 @@ from flask_bcrypt import Bcrypt
 import os
 from urllib.parse import quote_plus
 
-
 DB_USER = os.getenv("DB_USER", "biblioteca")  
 DB_PASSWORD = quote_plus(os.getenv("DB_PASSWORD", "4879##de"))
 DB_HOST = os.getenv("DB_HOST", "192.168.1.56") 
