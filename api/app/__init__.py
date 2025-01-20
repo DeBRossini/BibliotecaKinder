@@ -16,7 +16,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", "f238c63c6df4c9ad67d92046de68f5c6")
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 app.config['SECRET_KEY'] = SECRET_KEY
-app.config["UPLOAD_FOLDER"] = "static/capas"
+
 
 database = SQLAlchemy(app)
 bcrypt = Bcrypt(app)

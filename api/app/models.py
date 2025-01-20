@@ -37,8 +37,9 @@ class Livro(database.Model):
     capa = database.relationship("Capas", backref= "Livro", lazy=True)
     com_colaborador = database.Column(database.String(200), nullable= True)
     status = database.Column(database.String(100),nullable=False)
+    escola = database.Column(database.String(100), nullable = False)
 
 class Capas(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     id_livro = database.Column(database.Integer, database.ForeignKey('livro.id'), nullable=False)
-    imagem = database.Column(database.String(300), default="default.png")
+    imagem = database.Column(database.LargeBinary, nullable=False)
