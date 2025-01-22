@@ -28,6 +28,11 @@ Novo Livro
     </div>
 
     <div class="cadastro-form-campo">
+        {{ form.escola.label() }}
+        {{ form.escola(class="cadastro-form-input") }}
+    </div>
+
+    <div class="cadastro-form-campo">
         {{ form.capa.label() }}
         {{ form.capa(class="cadastro-form-input") }}
     </div>

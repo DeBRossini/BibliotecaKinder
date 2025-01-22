@@ -1,6 +1,6 @@
 # Criar a estrutura do banco de dados #
 
-from api.app import database, login_manager
+from app import database, login_manager
 from datetime import datetime
 from flask_login import UserMixin
 
@@ -42,4 +42,4 @@ class Livro(database.Model):
 class Capas(database.Model):
     id = database.Column(database.Integer, primary_key=True)
     id_livro = database.Column(database.Integer, database.ForeignKey('livro.id'), nullable=False)
-    imagem = database.Column(database.LargeBinary, nullable=False)
+    imagem = database.Column(database.LargeBinary(length=(2**32) - 1), nullable=False)

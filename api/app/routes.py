@@ -1,11 +1,11 @@
 # Criar as rotas do nosso site #
 from flask import render_template, url_for, redirect, flash, request
-from api.app import app, database, bcrypt
-from api.app.models import Usuario, Capas, Livro, Log
-from api.app.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
+from app import app, database, bcrypt
+from app.models import Usuario, Capas, Livro, Log
+from app.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
 from datetime import datetime
 from flask_login import login_required, current_user, login_user, logout_user
-import os
+import base64
 from werkzeug.utils import secure_filename
 
 
@@ -26,7 +26,16 @@ def home():
     livros = Livro.query.all()
     usuario = Usuario.query.filter_by(username = current_user.username).first()
     capas = Capas.query.join(Livro).add_columns(Livro.id, Livro.nome_livro, Capas.imagem, Livro.status).all()
-    return render_template("home.html", livros = livros, capas = capas, cargo=usuario.cargo)
+    capas_formatadas = []
+    for capa in capas:
+        capa_base64 = base64.b64encode(capa.imagem).decode('utf-8')
+        capas_formatadas.append({
+            'id': capa.id,
+            'nome_livro': capa.nome_livro,
+            'imagem_base64': capa_base64,
+            'status': capa.status
+        })
+    return render_template("home.html", livros = livros, capas = capas_formatadas, cargo=usuario.cargo)
 
 @app.route("/reservar-livro/<id_livro>", methods=["GET", "POST"])
 @login_required
@@ -35,6 +44,7 @@ def reserva(id_livro):
                    .add_columns(Livro.id, Livro.nome_livro, Livro.descricao, Capas.imagem, Livro.status, Livro.com_colaborador) \
                    .filter(Livro.id == id_livro) \
                    .first()
+    capa_base64 = base64.b64encode(livro.imagem).decode('utf-8')
     log = Log.query.filter((Log.id_do_livro == id_livro) & (Log.data_real_de_entrega.is_(None))).first()
     print(log)
     formreservarlivro = FormReservarLivro()
@@ -56,7 +66,7 @@ def reserva(id_livro):
         database.session.query(Log).filter_by(id_do_livro=Livro.id).update({"data_real_de_entrega": datetime.now(), "status": "Finalizado"})
         database.session.commit()
 
-    return render_template("reserva.html", livro=livro, log=log, form_reserva = formreservarlivro, form_dev = formdevolverlivro)
+    return render_template("reserva.html", livro=livro, log=log, form_reserva = formreservarlivro, form_dev = formdevolverlivro, capa = capa_base64)
 
 @app.route('/pesquisa', methods=['GET', 'POST'])
 def pesquisa():
@@ -68,8 +78,18 @@ def pesquisa():
             (Livro.palavras_chave.ilike(f'%{query}%')) |
             (Livro.descricao.ilike(f'%{query}%'))
             ).all()
-    
-    return render_template('resultado.html', capas=resultados)
+    capas_resultado = []
+    for resultado in resultados: 
+        capa_base64 = base64.b64encode(resultado.imagem).decode('utf-8')
+        capas_resultado.append({
+            'id': resultado.id,
+            'nome_livro': resultado.nome_livro,
+            'descricao': resultado.descricao,
+            'status': resultado.status,
+            'imagem_base64': capa_base64
+        })
+        
+    return render_template('resultado.html', capas=capas_resultado)
 
 @app.route("/adicionar-colaborador", methods=["GET", "POST"])
 #@login_required
@@ -129,16 +149,14 @@ def adicionarlivro():
                       descricao = formcriarlivro.descricao.data,
                       autor = formcriarlivro.autor.data,
                       palavras_chave = formcriarlivro.palavras_chave.data,
-                      status = "Disponível")
+                      status = "Disponível",
+                      escola = formcriarlivro.escola.data)
         database.session.add(livro)
         database.session.commit()
         arquivo = formcriarlivro.capa.data
         if arquivo:
-            nome_seguro = secure_filename(arquivo.filename)
-            caminho = os.path.join(os.path.abspath(os.path.dirname(__file__)), 
-                              app.config["UPLOAD_FOLDER"], nome_seguro)
-            arquivo.save(caminho)
-            capa = Capas(id_livro=livro.id, imagem=nome_seguro)
+            imagem_binaria = arquivo.read() 
+            capa = Capas(id_livro=livro.id, imagem=imagem_binaria)
             database.session.add(capa)
         database.session.commit()
 

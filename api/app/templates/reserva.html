@@ -7,7 +7,7 @@ Reservar Livro
     <h1 class="res-nome-livro">{{ livro.nome_livro }}</h1>
 
     <div class="res">
-        <img class="res-inf-capa" src="{{ url_for('static', filename='capas/{}'.format(livro.imagem)) }}" alt="Capa {{ livro.nome_livro }}">
+        <img class="capa_home" src="data:image/jpeg;base64,{{ capa }}" alt="Capa {{ livro.nome_livro }}">
         <div class="res-inf">
             <div class="res-inf-desc">
                 <p class="res-inf-desc-desc">Descrição:</p>

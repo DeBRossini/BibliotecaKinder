@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, FileField, SelectField, DateField, TextAreaField
 from wtforms.validators import DataRequired, EqualTo, ValidationError
 from flask_wtf.file import FileAllowed
-from api.app.models import Usuario, Livro
+from app.models import Usuario, Livro
 from sqlalchemy import func
 
 
@@ -43,6 +43,7 @@ class FormCriarLivro(FlaskForm):
     autor = StringField("Nome do(a) autor(a)", validators=[DataRequired()])
     palavras_chave = StringField("Palavras-chave para pesquisa", validators=[DataRequired()], render_kw={"placeholder":"Colocar entre vírgulas"})
     capa = FileField("Foto da Capa", validators=[FileAllowed(['jpg', 'jpeg', 'png'], "Apenas imagens são permitidas!")])
+    escola = SelectField("Onde o livro pertence?", choices= [("","Selecione"),("kinder", "Kinder"), ("young", "Young")], validators=[DataRequired()])
     botao_confirmacao = SubmitField("Adicionar Livro")
 
     def validate_nome_livro(self, nome_livro):

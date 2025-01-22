@@ -7,11 +7,11 @@ Resultados da pesquisa
     {% for capa in capas %}
     <div class="home-exp-livros">
         <div class="home_livro">
-            <img class="capa_home" src="{{ url_for('static', filename='capas/{}'.format(capa.imagem)) }}" alt="Capa {{ capa.nome_livro }}">
+            <img class="capa_home" src="data:image/jpeg;base64,{{ capa.imagem_base64 }}" alt="Capa {{ capa.nome_livro }}">
             {% if capa.status == "Disponível" %}
-                <a class="home-livro-nome" href="{{ url_for('reserva', id_livro=capa.id) }}" style="color: green;">{{ capa.nome_livro }}</a>
+                <a class="home-livro-nome" href="{{ url_for('reserva', id_livro=capa['id']) }}" style="color: green;">{{ capa.nome_livro }}</a>
             {% elif capa.status == "Reservado" %}
-                <a class="home-livro-nome" href="{{ url_for('reserva', id_livro=capa[1]) }}" style="color: red;">{{ capa.nome_livro }}</a>
+                <a class="home-livro-nome" href="{{ url_for('reserva', id_livro=capa['id']) }}" style="color: red;">{{ capa.nome_livro }}</a>
             {% endif %}
         </div>
     </div>
