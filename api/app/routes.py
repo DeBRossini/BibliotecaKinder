@@ -41,7 +41,7 @@ def home():
 @login_required
 def reserva(id_livro):
     livro = Livro.query.join(Capas) \
-                   .add_columns(Livro.id, Livro.nome_livro, Livro.descricao, Capas.imagem, Livro.status, Livro.com_colaborador) \
+                   .add_columns(Livro.id, Livro.escola, Livro.nome_livro, Livro.descricao, Capas.imagem, Livro.status, Livro.com_colaborador) \
                    .filter(Livro.id == id_livro) \
                    .first()
     capa_base64 = base64.b64encode(livro.imagem).decode('utf-8')

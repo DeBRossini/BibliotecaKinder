@@ -12,6 +12,7 @@ Reservar Livro
             <div class="res-inf-desc">
                 <p class="res-inf-desc-desc">Descrição:</p>
                 <p class="res-inf-desc-texto">{{ livro.descricao }}</p>
+                <p>Local: <span class="res-inf-desc-texto" style="font-weight:bold;">{{ livro.escola }}</span></p>
             </div>
             <p class="res-inf-status">Status: 
                 {% if livro.status == "Disponível" %}
