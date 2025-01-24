@@ -4,16 +4,15 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from urllib.parse import quote_plus
 
-DB_USER = "biblioteca"
-DB_PASSWORD = quote_plus("4879##de")
-DB_HOST =  "localhost"
-DB_PORT =  "50523"
-DB_NAME =  "sys"
+DB_USER = "db_kinder"
+DB_PASSWORD = quote_plus("Loca@102030")
+DB_HOST =  "179.188.16.163"
+DB_NAME =  "db_kinder"
 SECRET_KEY = "f238c63c6df4c9ad67d92046de68f5c6"
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 app.config['SECRET_KEY'] = SECRET_KEY
 
 
