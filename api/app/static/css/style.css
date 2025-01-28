@@ -221,7 +221,8 @@ footer{
 .res-inf-desc{
     gap:none;
     height:70%;
-    padding: 3% 0;
+    padding: 3% 0 0;
+
 }
 
 .res-inf-desc-texto{
