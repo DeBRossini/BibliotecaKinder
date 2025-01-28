@@ -2,7 +2,7 @@
 from flask import render_template, url_for, redirect, flash, request
 from api.app import app, database, bcrypt
 from api.app.models import Usuario, Capas, Livro, Log
-from api.app.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
+from app.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
 from datetime import datetime
 from flask_login import login_required, current_user, login_user, logout_user
 import base64
@@ -120,23 +120,17 @@ def altcolaboradores():
     ]
     if formalterarusuario.validate_on_submit():
         usuario_id = formalterarusuario.nome_completo_us.data
+        usuario = Usuario.query.get(usuario_id) 
         alterar_op = formalterarusuario.alterar_op.data
         if alterar_op == "status":
-            database.session.query(Usuario).filter_by(usuario_id=Usuario.id).update({
-                "status": formalterarusuario.novo_status.data
-                })
+            usuario.status = formalterarusuario.novo_status.data
         elif alterar_op == "nome_completo":
-            database.session.query(Usuario).filter_by(usuario_id=Usuario.id).update({
-                "nome_completo": formalterarusuario.novo_nome.data
-                })
+            usuario.nome_completo = formalterarusuario.novo_nome.data
         elif alterar_op == "senha":
-            database.session.query(Usuario).filter_by(usuario_id=Usuario.id).update({
-                "senha": formalterarusuario.nova_senha.data
-                })
+            usuario.senha = bcrypt.generate_password_hash(formalterarusuario.nova_senha.data)
         elif alterar_op == "cargo":
-            database.session.query(Usuario).filter_by(usuario_id=Usuario.id).update({
-                "cargo": formalterarusuario.novo_cargo.data
-                })
+            usuario.cargo = formalterarusuario.novo_cargo.data
+        database.session.commit()
     return render_template("altCol.html", form = formalterarusuario)
 
 @app.route("/adicionar-livro", methods=["GET", "POST"])
