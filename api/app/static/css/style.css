@@ -220,7 +220,13 @@ footer{
 
 .res-inf-desc{
     gap:none;
-    height:80%;
+    height:70%;
+    padding: 3% 0;
+}
+
+.res-inf-desc-texto{
+    font-family: var(--fonte);
+    font-size: 100%;
 }
 
 .res-inf-desc-desc{
@@ -325,4 +331,3 @@ footer{
     border-radius: 15px;
 }
 
-/*reserva*/
