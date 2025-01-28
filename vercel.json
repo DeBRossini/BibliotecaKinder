@@ -1,13 +1,17 @@
 {
-    "version": 2,
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "api/main.py"
-      }
-    ],
-    "env": {
-      "RUSTUP_HOME": "/vercel/.cargo",
-      "CARGO_HOME": "/vercel/.cargo/bin"
+  "version": 2,
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/api/app/static/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/main.py"
     }
+  ],
+  "env": {
+    "RUSTUP_HOME": "/vercel/.cargo",
+    "CARGO_HOME": "/vercel/.cargo/bin"
   }
+}
