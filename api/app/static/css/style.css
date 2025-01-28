@@ -226,7 +226,7 @@ footer{
 
 .res-inf-desc-texto{
     font-family: var(--fonte);
-    font-size: 100%;
+    font-size: 20px;
 }
 
 .res-inf-desc-desc{
