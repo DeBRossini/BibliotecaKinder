@@ -168,23 +168,16 @@ def altlivro():
     ]
     if formalterarlivro.validate_on_submit():
         livro_id = formalterarlivro.novo_nome.data
+        livro = Livro.query.get(livro_id)
         alterar_op = formalterarlivro.alterar_op.data
         if alterar_op == "nome-livro":
-            database.session.query(Livro).filter_by(livro_id=Livro.id).update({
-                "nome_livro": formalterarlivro.nome_livro.data
-                })
+            livro.nome_livro = formalterarlivro.novo_nome.data
         elif alterar_op == "autor":
-            database.session.query(Livro).filter_by(livro_id=Livro.id).update({
-                "autor": formalterarlivro.novo_autor.data
-                })
+            livro.autor = formalterarlivro.novo_autor.data
         elif alterar_op == "descricao":
-            database.session.query(Livro).filter_by(livro_id=Livro.id).update({
-                "descricao": formalterarlivro.nova_descricao.data
-                })
+            livro.descricao = formalterarlivro.nova_descricao.data
         elif alterar_op == "palavras-chave":
-            database.session.query(Livro).filter_by(livro_id=Livro.id).update({
-                "palavras_chave": formalterarlivro.novas_palch.data
-                })
+            livro.palavras_chave = formalterarlivro.novas_palch.data
     return render_template("altLivro.html", form = formalterarlivro)
 
 @app.route("/logout")

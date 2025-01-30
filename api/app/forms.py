@@ -46,11 +46,6 @@ class FormCriarLivro(FlaskForm):
     escola = SelectField("Onde o livro pertence?", choices= [("","Selecione"),("kinder", "Kinder"), ("young", "Young")], validators=[DataRequired()])
     botao_confirmacao = SubmitField("Adicionar Livro")
 
-    def validate_nome_livro(self, nome_livro):
-        livro = Livro.query.filter_by(nome_livro = nome_livro.data).first()
-        if livro:
-            raise ValidationError("Este livro já está cadastrado")
-
 class FormReservarLivro(FlaskForm):
     data_prevista_entrega = DateField("Quando pretende devolver?", format='%Y-%m-%d', validators=[DataRequired()])
     botao_reserva = SubmitField("Reservar")
@@ -74,4 +69,5 @@ class FormAlterarLivro(FlaskForm):
     novo_autor = StringField("Novo autor")
     nova_descricao = StringField("Nova descrição")
     novas_palch = StringField("Novas palavras-chave", render_kw={"placeholder":"Colocar entre vírgulas"})
+    nova_capa = FileField("Nova Capa", validators=[FileAllowed(['jpg', 'jpeg', 'png'], "Apenas imagens são permitidas!")])
     botao_confirmacao = SubmitField("Alterar Livro")
