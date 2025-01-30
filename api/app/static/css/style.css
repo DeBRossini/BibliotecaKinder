@@ -146,7 +146,7 @@ header{
 }
 
 .base-sair {
-    position: fixed;
+    position: absolute;
     top: 5.5%;
     right: 3%;
     color: var(--cor-terciaria);
@@ -165,7 +165,7 @@ footer{
 /*home*/
 
 .botoes_escola{
-    position: fixed;
+    position: absolute;
     top: 5.5%;
     left: 10%;
     gap: 15%;
