@@ -7,7 +7,7 @@ Reservar Livro
     <h1 class="res-nome-livro">{{ livro.nome_livro }}</h1>
 
     <div class="res">
-        <img class="capa_home" src="data:image/jpeg;base64,{{ capa }}" alt="Capa {{ livro.nome_livro }}">
+        <img class="capa_reserva" src="data:image/jpeg;base64,{{ capa }}" alt="Capa {{ livro.nome_livro }}">
         <div class="res-inf">
             <div class="res-inf-desc">
                 <p class="res-inf-desc-desc">Descrição:</p>
@@ -16,7 +16,7 @@ Reservar Livro
             <p class="res-inf-status">Status: 
                 {% if livro.status == "Disponível" %}
                     <span class="res-inf-status" style="color: green;">{{ livro.status }}</span>
-                    Local: <span class="res-inf-desc-texto" style="font-weight:bold;">{{ livro.escola }}</span>
+                    <p>Local: <span class="res-inf-desc-texto" style="font-weight:bold;">{{ livro.escola }}</span></p>
                 {% endif %}
                 {% if livro.status == "Reservado" %}
                     <span class="res-inf-status" style="color: red;">{{ livro.status }}</span>

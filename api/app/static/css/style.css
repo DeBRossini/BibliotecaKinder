@@ -163,8 +163,23 @@ footer{
 }
 
 /*home*/
+
+.botoes_escola{
+    position:fixed;
+    top: 5.5%;
+    left: 10%;
+    gap: 15%;
+    width: 10%;
+}
+
+.botao_escola{
+    color: var(--cor-terciaria);
+    font-size: 120%;
+    text-decoration: none;
+    object-position: center;
+}
+
 .capa_home {
-    max-width: 100%;
     height: 60%;
 }
 
@@ -200,6 +215,11 @@ footer{
 
 
 /*Reserva.html*/
+
+.capa_reserva{
+    height: 80%;
+}
+
 .res-nome-livro{
     font-family: var(--fonte);
     font-size: 150%;
@@ -221,7 +241,6 @@ footer{
 .res-inf-desc{
     gap:none;
     padding: 3% 0 0;
-
 }
 
 .res-inf-desc-texto{
@@ -249,7 +268,7 @@ footer{
     font-family: var(--fonte);
     font-size: 150%;
     margin: 1%;
-    width: 80%;
+    width: 60%;
     height: 80%;
     padding: 2%;
     gap: none;

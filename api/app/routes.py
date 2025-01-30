@@ -1,8 +1,8 @@
 # Criar as rotas do nosso site #
 from flask import render_template, url_for, redirect, flash, request
-from api.app import app, database, bcrypt
-from api.app.models import Usuario, Capas, Livro, Log
-from api.app.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
+from app import app, database, bcrypt
+from app.models import Usuario, Capas, Livro, Log
+from app.forms import FormAlterarLivro, FormCriarConta, FormLogin, FormCriarLivro, FormReservarLivro, FormDevolverLivro, FormAlterarUsuario
 from datetime import datetime
 from flask_login import login_required, current_user, login_user, logout_user
 import base64
@@ -23,9 +23,8 @@ def loginpage():
 @app.route("/homepage", methods=["GET", "POST"])
 @login_required
 def home():
-    livros = Livro.query.all()
     usuario = Usuario.query.filter_by(username = current_user.username).first()
-    capas = Capas.query.join(Livro).add_columns(Livro.id, Livro.nome_livro, Capas.imagem, Livro.status).all()
+    capas = Capas.query.join(Livro).add_columns(Livro.id, Livro.nome_livro, Capas.imagem, Livro.status, Livro.escola).all()
     capas_formatadas = []
     for capa in capas:
         capa_base64 = base64.b64encode(capa.imagem).decode('utf-8')
@@ -33,9 +32,10 @@ def home():
             'id': capa.id,
             'nome_livro': capa.nome_livro,
             'imagem_base64': capa_base64,
-            'status': capa.status
+            'status': capa.status,
+            'escola': capa.escola
         })
-    return render_template("home.html", livros = livros, capas = capas_formatadas, cargo=usuario.cargo)
+    return render_template("home.html", capas = capas_formatadas, cargo=usuario.cargo)
 
 @app.route("/reservar-livro/<id_livro>", methods=["GET", "POST"])
 @login_required
@@ -92,7 +92,7 @@ def pesquisa():
     return render_template('resultado.html', capas=capas_resultado)
 
 @app.route("/adicionar-colaborador", methods=["GET", "POST"])
-#@login_required
+@login_required
 def criarconta():
     formcriarconta = FormCriarConta()
     if formcriarconta.validate_on_submit():
@@ -169,6 +169,7 @@ def altlivro():
     if formalterarlivro.validate_on_submit():
         livro_id = formalterarlivro.novo_nome.data
         livro = Livro.query.get(livro_id)
+        capa = Capas.query.get(livro_id)
         alterar_op = formalterarlivro.alterar_op.data
         if alterar_op == "nome-livro":
             livro.nome_livro = formalterarlivro.novo_nome.data
@@ -178,6 +179,10 @@ def altlivro():
             livro.descricao = formalterarlivro.nova_descricao.data
         elif alterar_op == "palavras-chave":
             livro.palavras_chave = formalterarlivro.novas_palch.data
+        elif alterar_op == "capa":
+            arquivo = formalterarlivro.nova_capa.data
+            imagem_binaria = arquivo.read() 
+            capa.imagem = imagem_binaria
     return render_template("altLivro.html", form = formalterarlivro)
 
 @app.route("/logout")
@@ -185,3 +190,39 @@ def altlivro():
 def logout():
     logout_user()
     return redirect(url_for("loginpage"))
+
+@app.route('/livros-kinder', methods=['GET', 'POST'])
+def livrosKinder():
+    resultados = []
+    resultados = Livro.query.join(Capas).add_columns(Livro.id, Livro.nome_livro, Livro.descricao, Livro.status, Capas.imagem).filter(
+        (Livro.escola.ilike("kinder"))
+        ).all()
+    capas_resultado = []
+    for resultado in resultados: 
+        capa_base64 = base64.b64encode(resultado.imagem).decode('utf-8')
+        capas_resultado.append({
+            'id': resultado.id,
+            'nome_livro': resultado.nome_livro,
+            'descricao': resultado.descricao,
+            'status': resultado.status,
+            'imagem_base64': capa_base64
+        })
+    return render_template('livrosKinder.html', capas=capas_resultado)
+
+@app.route('/livros-young', methods=['GET', 'POST'])
+def livrosYoung():
+    resultados = []
+    resultados = Livro.query.join(Capas).add_columns(Livro.id, Livro.nome_livro, Livro.descricao, Livro.status, Capas.imagem).filter(
+        (Livro.escola.ilike("young"))
+        ).all()
+    capas_resultado = []
+    for resultado in resultados: 
+        capa_base64 = base64.b64encode(resultado.imagem).decode('utf-8')
+        capas_resultado.append({
+            'id': resultado.id,
+            'nome_livro': resultado.nome_livro,
+            'descricao': resultado.descricao,
+            'status': resultado.status,
+            'imagem_base64': capa_base64
+        })
+    return render_template('livrosYoung.html', capas=capas_resultado)

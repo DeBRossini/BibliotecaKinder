@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const campoAutor = document.getElementById("campo-autor");
     const campoDesc = document.getElementById("campo-descricao");
     const campoPalch = document.getElementById("campo-palch");
+    const campoCapa = document.getElementById("campo-capa")
 
     function atualizarCampos() {
         const valor = alterarOptLivro.value;
@@ -60,6 +61,8 @@ document.addEventListener("DOMContentLoaded", function () {
             campoDesc.style.display = "block";
         } else if (valor === "palavras-chave") {
             campoPalch.style.display = "block";
+        } else if (valor == "capa"){
+            campoCapa.style.display = "block"
         }
     }
 

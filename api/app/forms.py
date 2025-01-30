@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, FileField, SelectField, DateField, TextAreaField
 from wtforms.validators import DataRequired, EqualTo, ValidationError
 from flask_wtf.file import FileAllowed
-from api.app.models import Usuario, Livro
+from app.models import Usuario, Livro
 from sqlalchemy import func
 
 
@@ -63,8 +63,8 @@ class FormAlterarUsuario(FlaskForm):
     botao_confirmacao = SubmitField("Alterar usuário")
 
 class FormAlterarLivro(FlaskForm):
-    nome_livro = SelectField('Nome do colaborador', choices=[])
-    alterar_op = SelectField('O que deseja alterar?', choices=[("","Selecione"),("nome-livro", "Nome do Livro"), ("autor", "Autor"), ("descricao", "Descrição"), ("palavras-chave", "Palavras chave")])
+    nome_livro = SelectField('Nome do livro', choices=[])
+    alterar_op = SelectField('O que deseja alterar?', choices=[("","Selecione"),("nome-livro", "Nome do Livro"), ("autor", "Autor"), ("descricao", "Descrição"), ("palavras-chave", "Palavras chave"), ("capa", "Capa")])
     novo_nome = StringField("Novo nome")
     novo_autor = StringField("Novo autor")
     nova_descricao = StringField("Nova descrição")
