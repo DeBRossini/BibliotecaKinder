@@ -6,7 +6,7 @@ from urllib.parse import quote_plus
 
 DB_USER = "db_kinder"
 DB_PASSWORD = quote_plus("Loca@102030")
-DB_HOST =  "179.188.16.163"
+DB_HOST =  "db_kinder.mysql.dbaas.com.br"
 DB_NAME =  "db_kinder"
 SECRET_KEY = "f238c63c6df4c9ad67d92046de68f5c6"
 
