@@ -6,7 +6,6 @@ from flask_wtf.file import FileAllowed
 from api.app.models import Usuario, Livro
 from sqlalchemy import func
 
-
 class FormLogin(FlaskForm):
     usuario = StringField("Usuario", validators=[DataRequired()], render_kw={"placeholder":"Usuário"})
     senha = PasswordField("Senha", validators=[DataRequired()], render_kw={"placeholder":"Senha"})
