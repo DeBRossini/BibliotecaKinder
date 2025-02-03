@@ -4,15 +4,13 @@
     {
       "src": "/(.*)",
       "dest": "api/main.py"
-    },
-    {
-      "functions": {
-        "api/**/*.js": {
-          "maxDuration": 30
-        }
-      }
     }
   ],
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 30
+    }
+  },
   "env": {
     "RUSTUP_HOME": "/vercel/.cargo",
     "CARGO_HOME": "/vercel/.cargo/bin"
