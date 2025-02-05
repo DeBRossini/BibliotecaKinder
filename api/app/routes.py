@@ -60,6 +60,7 @@ def reserva(id_livro):
         database.session.add(log)
         database.session.commit()
         flash("Livro reservado com sucesso!", "success")
+        return redirect(url_for("reserva", id_livro=id_livro))
 
     elif formdevolverlivro.validate_on_submit() and formdevolverlivro.botao_devolucao.data:
         print("Botão de devolução clicado")
@@ -67,7 +68,7 @@ def reserva(id_livro):
         database.session.query(Log).filter_by(id_do_livro=Livro.id).update({"data_real_de_entrega": datetime.now(), "status": "Finalizado"})
         database.session.commit()
         flash("Livro devolvido com sucesso!", "success")
-    return redirect(url_for("reserva", id_livro=id_livro))
+        return redirect(url_for("reserva", id_livro=id_livro))
 
     return render_template("reserva.html", livro=livro, log=log, form_reserva = formreservarlivro, form_dev = formdevolverlivro, capa = capa_base64)
 
