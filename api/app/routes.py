@@ -59,12 +59,15 @@ def reserva(id_livro):
         )
         database.session.add(log)
         database.session.commit()
+        flash("Livro reservado com sucesso!", "success")
 
     elif formdevolverlivro.validate_on_submit() and formdevolverlivro.botao_devolucao.data:
         print("Botão de devolução clicado")
         database.session.query(Livro).filter_by(id=id_livro).update({"status": "Disponível", "com_colaborador": ""})
         database.session.query(Log).filter_by(id_do_livro=Livro.id).update({"data_real_de_entrega": datetime.now(), "status": "Finalizado"})
         database.session.commit()
+        flash("Livro devolvido com sucesso!", "success")
+    return redirect(url_for("reserva", id_livro=id_livro))
 
     return render_template("reserva.html", livro=livro, log=log, form_reserva = formreservarlivro, form_dev = formdevolverlivro, capa = capa_base64)
 
@@ -114,7 +117,7 @@ def criarconta():
 @login_required
 def altcolaboradores():
     formalterarusuario = FormAlterarUsuario()
-    usuarios = Usuario.query.all() 
+    usuarios = Usuario.query.filter_by(Usuario.status == 'ativo').all() 
     formalterarusuario.nome_completo_us.choices = [("", "Selecione um usuário")] + [
         (usuario.id, usuario.nome_completo) for usuario in usuarios
     ]

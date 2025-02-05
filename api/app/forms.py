@@ -63,7 +63,7 @@ class FormAlterarUsuario(FlaskForm):
 
 class FormAlterarLivro(FlaskForm):
     nome_livro = SelectField('Nome do livro', choices=[])
-    alterar_op = SelectField('O que deseja alterar?', choices=[("","Selecione"),("nome-livro", "Nome do Livro"), ("autor", "Autor"), ("descricao", "Descrição"), ("palavras-chave", "Palavras chave"), ("capa", "Capa")])
+    alterar_op = SelectField('O que deseja alterar?', choices=[("","Selecione"),("nome-livro", "Nome do Livro"), ("autor", "Autor"), ("descricao", "Descrição"), ("palavras-chave", "Palavras chave"), ("capa", "Capa"), ("del", "Deletar")])
     novo_nome = StringField("Novo nome")
     novo_autor = StringField("Novo autor")
     nova_descricao = StringField("Nova descrição")
