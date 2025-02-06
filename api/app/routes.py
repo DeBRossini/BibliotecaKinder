@@ -45,7 +45,7 @@ def reserva(id_livro):
                    .filter(Livro.id == id_livro) \
                    .first()
     capa_base64 = base64.b64encode(livro.imagem).decode('utf-8')
-    log = Log.query.filter((Log.id_do_livro == id_livro) & (Log.data_real_de_entrega.is_(None))).first()
+    log = Log.query.filter(Log.id_do_livro == id_livro).first()
     print(log)
     formreservarlivro = FormReservarLivro()
     formdevolverlivro = FormDevolverLivro()
@@ -53,7 +53,7 @@ def reserva(id_livro):
         database.session.query(Livro).filter_by(id=id_livro).update({"status": "Reservado", "com_colaborador": current_user.nome_completo})
         log = Log(id_do_livro = livro.id,
                   id_do_usuario = current_user.id,
-                   data_alugado = datetime.now(),
+                  data_alugado = datetime.now(),
                   status = "Em aberto",
                   data_previsao_de_entrega = formreservarlivro.data_prevista_entrega.data
         )
