@@ -13,12 +13,13 @@
 
 body{
     background-color: var(--cor-secundaria);
+    height: 100vh;
 }
 
 .login{
     margin: 3% 30%;
     background-color: var(--cor-terciaria);
-    height: 90%;
+    height: 90vh;
     border-radius: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -27,7 +28,8 @@ body{
 }
 
 .login-logo{
-    margin: 5% 30% 3%;
+    margin: 5% 30% 5%;
+    height: 30%;
 }
 
 .login-texto{
@@ -66,11 +68,10 @@ body{
 
 .login-botao{
     background-color: var(--cor-secundaria);
+    text-align: center;
+    height: 30%;
     margin: 2% 20%;
     border-radius: 1.5rem;
-    height: 7%;
-    border: none;
-    padding: 3%;
     color: #FFFFFF;
     font-family: var(--fonte-secundaria);
     font-size: 120%;
@@ -85,4 +86,22 @@ body{
         margin: 3% 15%;
     }
 
+}
+
+@media (max-width: 500px){
+    .login-logo{
+        margin: 5% 10% 5%;
+    }
+    
+    .login-dados{
+        height: 20%;
+    }
+    .login-botao{
+        height: 30%;
+        border: none;
+        padding: 3%;
+        color: #FFFFFF;
+        font-family: var(--fonte-secundaria);
+        font-size: 120%;
+    }
 }

@@ -101,7 +101,7 @@ header{
 .base-home-link-img{
     background-color: var(--cor-secundaria);
     height: 50%;
-    width: 100%;
+    
 }
 
 .base-pesquisa{
@@ -361,6 +361,11 @@ footer{
         font-size: 100%;
     }
 
+    .base-home-link-img{
+        width: 40px;
+        height: 40px;
+    }
+
     .base-pesquisa{
         width: 60%;
         left: 25%;
@@ -370,6 +375,14 @@ footer{
         font-size: 60%;
     }
     
+    .res{
+        display: flex ;
+        flex-direction: column;
+    }
+
+    .res-inf{
+        width: 85%;
+    }
 
     .res-inf-desc-texto{
         font-size: 12px;
@@ -397,4 +410,21 @@ footer{
         font-size: 100%;
     }
 
+    .capa_reserva{
+        height: 40%;
+    }
+
+}
+
+@media (max-width: 380px){
+    .base-home-link-img{
+        width: 50px;
+    }
+    .home-livro-nome{
+        font-size: 100%;
+    }
+    
+    .botao_escola{
+        object-position: right;
+    }
 }
