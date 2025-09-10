@@ -3,4 +3,4 @@ import os
 
 sys.path.insert(0, '/var/www/librarykinder/BibliotecaKinder')
 
-from main import app as application
+from api.main import app as application
